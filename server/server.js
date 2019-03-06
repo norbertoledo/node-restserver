@@ -1,9 +1,12 @@
 require('./config/config');
 
+
 const express = require('express');
-const app = express();
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
+
+const app = express();
 
 const port = process.env.PORT;
 
@@ -11,46 +14,29 @@ const port = process.env.PORT;
 Middlewares
 '.use' Cada peticion que hagamos, siempre pasa por estas lineas
 */
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
  
-
-// leer
-app.get('/usuario', function (req, res) {
-    res.json('get Usuario')
-})
-
-// crear
-app.post('/usuario', function (req, res) {
-
-    let body = req.body;
+// Importo y utilizo las rutas de usuario
+// la agrego luego del bodyParser porque usuario la utiliza
+app.use(require('./routes/usuario'));
 
 
 
-    res.json({
-        persona: body
-    })
-})
-
-// actualizar
-app.put('/usuario/:id', function (req, res) {
-
-    let id = req.params.id
-
-    res.json({
-        id
-    })
-})
-
-// Borrar - Ya no se acostumbra a borrar un registro, sino a cambiarle el estado, pero que siga existiendo el registro
-app.delete('/usuario', function (req, res) {
-    res.json('delete Usuario')
-})
+// Conexion a la DB con Mongoose
+// Defino tambien un segundo parametro con un callback para ver si logra hacer la conexion o no
+// mongodb:dominio:puerto/database
+// Si no existe la database, no arroja error. Al momento de crear el primer registro, crea la DB
+mongoose.connect(process.env.URLDB, { useCreateIndex: true, useNewUrlParser: true },( err, res )=>{
+    if( err ) throw err;
+    console.log('Base de datos ONLINE');
+});
 
 
-
+// Escucha el puerto del servidor
 app.listen(port, ()=>{
     console.log(`Escuchando el puerto ${port}`);
 })
