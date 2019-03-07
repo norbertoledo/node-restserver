@@ -42,6 +42,13 @@ process.env.TOKEN_EXPIRES = 60 * 60 * 24 * 30; // expira en 30 dias
 process.env.TOKEN_SEED = process.env.TOKEN_SEED || 'este-es-el-seed-de-desarrollo';
 
 
+/**
+ * ======================
+ * GOOGLE CLIENT_ID
+ * ======================
+ */
+process.env.CLIENT_ID = process.env.CLIENT_ID || '796144522269-8c4htechetffes8nno5kk4pu7ngdi2fo.apps.googleusercontent.com';
+
 
 /**
  * ======================
