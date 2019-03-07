@@ -21,6 +21,28 @@
 // Preguntamos por una variable global de entorno que vamos a generar en Heroku o en cualquier servidor que se despliegue
 process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 
+ /**
+ * ======================
+ * Token Vencimiento
+ * ======================
+ */
+/*
+60 segundos
+60 minutos
+24 horas
+30 dias
+*/
+process.env.TOKEN_EXPIRES = 60 * 60 * 24 * 30; // expira en 30 dias
+
+ /**
+ * ======================
+ * Token Seed de autenticacion
+ * ======================
+ */
+process.env.TOKEN_SEED = process.env.TOKEN_SEED || 'este-es-el-seed-de-desarrollo';
+
+
+
 /**
  * ======================
  * Base de datos

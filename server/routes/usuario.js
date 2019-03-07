@@ -2,13 +2,16 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const _ = require('underscore');
 const Usuario = require('../models/usuario');
+const {verificaToken, verificaAdminRole} = require('../middlewares/auth');
 
 const app = express();
 
 // GET //
 // leer
-app.get('/usuario', function (req, res) {
+// El segundo parametro en el caso de express es un Middleware 
+app.get('/usuario', verificaToken, (req, res)=> {
     
+
     let desde = Number(req.query.desde) || 0;
     let limite = Number(req.query.limite) || 5;
     let condicion = {
@@ -49,7 +52,7 @@ app.get('/usuario', function (req, res) {
 
 // POST //
 // crear
-app.post('/usuario', function (req, res) {
+app.post('/usuario', [verificaToken, verificaAdminRole], (req, res) => {
 
     let body = req.body;
 
@@ -88,7 +91,8 @@ const optionsPutValidator = {
 const propsPutAvaible = ['nombre', 'email', 'img', 'role', 'estado'];
 
 // actualizar
-app.put('/usuario/:id', function (req, res) {
+app.put('/usuario/:id', [verificaToken, verificaAdminRole], (req, res) => {
+
 
     let id = req.params.id;
     let body = _.pick(req.body, propsPutAvaible);
@@ -116,7 +120,7 @@ app.put('/usuario/:id', function (req, res) {
 
 // DELETE
 // Borrar - Ya no se acostumbra a borrar un registro, sino a cambiarle el estado, pero que siga existiendo el registro
-app.delete('/usuario/:id', function (req, res) {
+app.delete('/usuario/:id', [verificaToken, verificaAdminRole], (req, res) => {
     
     let id = req.params.id;
     let cambiaEstado = {

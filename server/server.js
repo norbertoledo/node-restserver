@@ -20,10 +20,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
  
-// Importo y utilizo las rutas de usuario
+// Configuracion global de rutas
 // la agrego luego del bodyParser porque usuario la utiliza
-app.use(require('./routes/usuario'));
-
+app.use(require('./routes/index'));
 
 
 // Conexion a la DB con Mongoose
