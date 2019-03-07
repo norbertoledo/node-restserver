@@ -47,7 +47,7 @@ process.env.TOKEN_SEED = process.env.TOKEN_SEED || 'este-es-el-seed-de-desarroll
  * GOOGLE CLIENT_ID
  * ======================
  */
-process.env.CLIENT_ID = process.env.CLIENT_ID || '796144522269-8c4htechetffes8nno5kk4pu7ngdi2fo.apps.googleusercontent.com';
+process.env.CLIENT_ID = process.env.CLIENT_ID || '796144522269-o9ssh90kk41q447r5bluh2rs123r3p22.apps.googleusercontent.com';
 
 
 /**
