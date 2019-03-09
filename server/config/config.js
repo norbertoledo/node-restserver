@@ -32,7 +32,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 24 horas
 30 dias
 */
-process.env.TOKEN_EXPIRES = 60 * 60 * 24 * 30; // expira en 30 dias
+process.env.TOKEN_EXPIRES = '30d'; // expira en 30 dias
 
  /**
  * ======================
