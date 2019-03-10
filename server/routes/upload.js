@@ -29,7 +29,8 @@ const extensionesValidas = ['png', 'jpg', 'gif', 'jpeg'];
 
 
 const optionsTempFile = {
-    useTempFiles : true
+    useTempFiles : true,
+    tempFileDir : '/tmp/'
 };
 
 // Miidleware => Todos los archivos que se carguen, caen dentro del 'req.file'
