@@ -31,7 +31,7 @@ let verificaToken = ( req, res, next) => {
 };
 
 // ================
-// Verificar TOKEN
+// Verificar ADMIN_ROLE
 // ================
 let verificaAdminRole = ( req, res, next ) =>{
 
@@ -50,8 +50,37 @@ let verificaAdminRole = ( req, res, next ) =>{
 
 }
 
+// ================
+// Verificar TOKEN PARA IMAGEN
+// ================
+let verificaTokenImg = ( req, res, next ) =>{
+
+    let token = req.query.token;
+
+    jwt.verify( token, process.env.TOKEN_SEED, ( err, decoded) =>{
+
+        if(err){
+            //401 => Error de autorizacion
+            return res.status(401).json({
+                ok:false,
+                err: {
+                    message: 'Token no válido'
+                }
+            })
+        }
+        // El decoded es todo el payload (Los datos del usuario en la DB)
+        // la propiedad usuario es la que generamos en el login jwt.sign()
+        req.usuario = decoded.usuario;
+
+        next();
+
+    });
+
+}
+
 
 module.exports = {
     verificaToken,
-    verificaAdminRole
+    verificaAdminRole,
+    verificaTokenImg
 }
